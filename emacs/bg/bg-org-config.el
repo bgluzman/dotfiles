@@ -48,7 +48,7 @@
 
 ;; AUTOMATIC LOGGING
 (setq org-log-into-drawer t)
-(setq org-log-done 'time)
+(setq org-log-done 'note)
 (setq org-log-reschedule 'note)
 
 ;; DEPENDENCY TRACKING
