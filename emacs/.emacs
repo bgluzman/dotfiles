@@ -7,7 +7,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(ace-window auto-complete counsel ivy swiper which-key)))
+ '(package-selected-packages
+   '(magit ace-window auto-complete counsel ivy swiper which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -18,6 +19,14 @@
 
 ;; EXEC PATH SETUP
 (setq exec-path (append exec-path '("/usr/local/bin")))
+
+;; AUTOREVERT MODES
+(global-auto-revert-mode 1)
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
+;; LINE NUMBERS
+(when (version<= "26.0.50" emacs-version )
+  (global-display-line-numbers-mode))
 
 ;; IVY SETUP
 (ivy-mode 1)
@@ -49,16 +58,11 @@
 (global-set-key (kbd "M-o") 'ace-window)
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
-;; LINE NUMBERS
-(when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode))
-
 ;; WHICH-KEY
 (which-key-mode)
 
-;; AUTOREVERT MODES
-(global-auto-revert-mode 1)
-(add-hook 'dired-mode-hook 'auto-revert-mode)
+;; MAGIT
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; INCLUDES
 (load "~/.emacs.d/bg/bg-org-config.el")
