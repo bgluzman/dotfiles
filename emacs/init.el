@@ -14,6 +14,8 @@
 (when (version<= "26.0.50" emacs-version)
   (global-display-line-numbers-mode))
 
+(set-face-attribute 'default nil :height 250)
+
 (fido-mode)
 
 (use-package ace-window
