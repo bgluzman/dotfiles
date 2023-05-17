@@ -16,7 +16,7 @@
 
 (set-face-attribute 'default nil :height 250)
 
-(fido-mode)
+(icomplete-mode)
 
 (use-package ace-window
   :ensure t
@@ -24,6 +24,13 @@
   ("M-o" . 'ace-window)
   :custom
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
+(use-package avy
+  :ensure t
+  :bind
+  ("M-g s" . 'avy-goto-word-0)
+  ("M-g f" . 'avy-goto-line)
+  ("M-g d" . 'avy-goto-char))
 
 (use-package which-key
   :ensure t
@@ -56,7 +63,9 @@
   (company-idle-delay 0.1))
 
 (use-package eglot
-  :ensure t)
+  :ensure t
+  :custom
+  (add-to-list '((c++-mode c-mode) "clangd")))
 
 (use-package yasnippet
   :ensure t
