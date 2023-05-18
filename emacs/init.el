@@ -24,6 +24,10 @@
   (when (version<= "26.0.50" emacs-version)
     (global-display-line-numbers-mode)))
 (use-package eglot
+  :config
+  ;; needed for overload suggestions
+  (add-to-list 'eglot-server-programs
+	       '(c++-mode . ("clangd" "--completion-style=detailed")))
   :bind
   (:map eglot-mode-map
 	;; code actions
@@ -42,38 +46,34 @@
 	("C-c l d" . eldoc)
 	("C-c l b" . flymake-show-buffer-diagnostics)
 	("C-c l p" . flymake-show-project-diagnostics))
-  :config
-  ;; needed for overload suggestions
-  (add-to-list 'eglot-server-programs
-	       '(c++-mode . ("clangd" "--completion-style=detailed")))
-  ;; setup hook for C++
-  (add-hook 'c++-mode-hook 'eglot-ensure))
+  :hook
+  (c++-mode . eglot-ensure))
 
 (use-package modus-themes
   :ensure t
-  :bind
-  ("<f5>" . 'modus-themes-toggle)
   :config
   (load-theme 'modus-operandi-tinted :no-confirm)
   (setq modus-themes-to-toggle
-	'(modus-operandi-tinted modus-vivendi-tinted)))
+	'(modus-operandi-tinted modus-vivendi-tinted))
+  :bind
+  ("<f5>" . 'modus-themes-toggle))
 
 (use-package paredit
   :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
+  :hook
+  (emacs-lisp-mode . enable-paredit-mode))
 
 (use-package rainbow-delimiters
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 (use-package ace-window
   :ensure t
-  :bind
-  ("M-o" . 'ace-window)
   :custom
-  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :bind
+  ("M-o" . 'ace-window))
 
 (use-package avy
   :ensure t
@@ -96,15 +96,30 @@
   :ensure t
   :init
   (global-company-mode)
-  :bind
-  ("C-c y" . 'company-yasnippet)
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.1))
-
+  (company-idle-delay 0.1)
+  :bind
+  ("C-c y" . 'company-yasnippet))
 
 (use-package yasnippet
   :ensure t
   :init
   (yas-global-mode))
+
+
+(add-to-list 'load-path "/home/brian/.emacs.d/external/semantic-refactor/")
+(use-package srefactor
+  :ensure nil
+  :hook
+  (c-mode   . (lambda ()
+	        (semantic-mode)
+	        (define-key c-mode-map
+			    (kbd "M-RET")
+			    'srefactor-refactor-at-point)))
+  (c++-mode . (lambda ()
+	        (semantic-mode)
+	        (define-key c++-mode-map
+			    (kbd "M-RET")
+			    'srefactor-refactor-at-point))))
 
