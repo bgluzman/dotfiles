@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-ui lsp-mode yasnippet company magit which-key ace-window)))
+   '(modus-themes lsp-ui lsp-mode yasnippet company magit which-key ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -17,7 +17,7 @@
   :config
   ;; completion
   (fido-vertical-mode)
-  ;; styles
+  ;; look 'n feel
   (set-face-attribute 'default nil :height 200)
   (when (version<= "26.0.50" emacs-version)
     (global-display-line-numbers-mode)))
@@ -26,6 +26,15 @@
   ;; needed for overload suggestions
   (add-to-list 'eglot-server-programs
 	       '(c++-mode . ("clangd" "--completion-style=detailed"))))
+
+(use-package modus-themes
+  :ensure t
+  :bind
+  ("<f5>" . 'modus-themes-toggle)
+  :config
+  (load-theme 'modus-operandi-tinted :no-confirm)
+  (setq modus-themes-to-toggle
+	'(modus-operandi-tinted modus-vivendi-tinted)))
 
 (use-package ace-window
   :ensure t
