@@ -108,18 +108,21 @@
   (yas-global-mode))
 
 
-(add-to-list 'load-path "/home/brian/.emacs.d/external/semantic-refactor/")
-(use-package srefactor
-  :ensure nil
-  :hook
-  (c-mode   . (lambda ()
-	        (semantic-mode)
-	        (define-key c-mode-map
-			    (kbd "M-RET")
-			    'srefactor-refactor-at-point)))
-  (c++-mode . (lambda ()
-	        (semantic-mode)
-	        (define-key c++-mode-map
-			    (kbd "M-RET")
-			    'srefactor-refactor-at-point))))
+(setq semantic-refactor-local-package
+      "/home/brian/.emacs.d/external/semantic-refactor/")
+(when (file-directory-p semantic-refactor-local-package)
+  (add-to-list 'load-path semantic-refactor-local-package)
+  (use-package srefactor
+    :ensure nil
+    :hook
+    (c-mode   . (lambda ()
+	          (semantic-mode)
+	          (define-key c-mode-map
+			      (kbd "M-RET")
+			      'srefactor-refactor-at-point)))
+    (c++-mode . (lambda ()
+	          (semantic-mode)
+	          (define-key c++-mode-map
+			      (kbd "M-RET")
+			      'srefactor-refactor-at-point)))))
 
