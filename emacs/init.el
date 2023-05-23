@@ -12,6 +12,12 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Ensure packages get installed on new system...
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
+
 ;; builtins
 (use-package emacs
   :config
