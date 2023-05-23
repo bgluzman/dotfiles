@@ -27,7 +27,8 @@
   (electric-pair-mode)
   ;; look 'n feel
   (setq mac-command-modifier 'control)
-  (set-face-attribute 'default nil :height 200)
+  (set-face-attribute 'default nil :height
+		      (if (eq system-type 'darwin) 150 200))
   (when (version<= "26.0.50" emacs-version)
     (global-display-line-numbers-mode)))
 (use-package eglot
