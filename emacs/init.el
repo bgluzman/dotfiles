@@ -18,6 +18,12 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
+;; auto-formatting support (for eglot, below)
+(defun eglot-format-on-save ()
+  (when (and (memq 'eglot--managed-mode minor-mode-list)
+	     (memq this-command '(save-buffer save-some-buffers)))
+    (eglot-format-buffer)))
+
 ;; builtins
 (use-package emacs
   :config
@@ -33,6 +39,8 @@
   (when (version<= "26.0.50" emacs-version)
     (global-display-line-numbers-mode)))
 (use-package eglot
+  :init
+  (add-hook 'after-save-hook #'eglot-format-on-save)
   :config
   ;; needed for overload suggestions
   (add-to-list 'eglot-server-programs
