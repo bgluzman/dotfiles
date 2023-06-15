@@ -45,6 +45,15 @@
   ;; needed for overload suggestions
   (add-to-list 'eglot-server-programs
 	       '(c++-mode . ("clangd" "--completion-style=detailed")))
+  (setq-default eglot-workspace-configuration
+		'(:pylsp
+		  (:plugins (:flake8          (:enabled t)
+			     :pycodesytle     (:enabled :json-false)
+			     :jedi_completion (:include_params t
+					       :fuzzy t)
+		             :pylint          (:enabled :json-false)
+			     :black           (:enabled t)
+			     :pylsp_mypy      (:enabled t)))))
   :bind
   (:map eglot-mode-map
 	;; code actions
@@ -64,7 +73,8 @@
 	("C-c l b" . flymake-show-buffer-diagnostics)
 	("C-c l p" . flymake-show-project-diagnostics))
   :hook
-  (c++-mode . eglot-ensure))
+  (c++-mode . eglot-ensure)
+  (python-mode . eglot-ensure))
 
 (use-package modus-themes
   :ensure t
