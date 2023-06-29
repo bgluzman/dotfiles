@@ -54,7 +54,8 @@
 			     :jedi_completion (:include_params t
 					       :fuzzy t)
 		             :pylint          (:enabled :json-false)
-			     :black           (:enabled t)
+			     :black           (:enabled     t
+					       :line_length 79)
 			     :pylsp_mypy      (:enabled t)))))
   :bind
   (:map eglot-mode-map
