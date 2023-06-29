@@ -37,7 +37,9 @@
   (set-face-attribute 'default nil :height
 		      (if (eq system-type 'darwin) 150 300))
   (when (version<= "26.0.50" emacs-version)
-    (global-display-line-numbers-mode)))
+    (global-display-line-numbers-mode))
+  :bind (:map c++-mode-map
+	      ("C-c o" . ff-find-other-file)))
 (use-package eglot
   :init
   (add-hook 'after-save-hook #'eglot-format-on-save)
