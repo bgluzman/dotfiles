@@ -35,11 +35,14 @@
   (setq mac-command-modifier 'control)
   (column-number-mode)
   (set-face-attribute 'default nil :height
-		      (if (eq system-type 'darwin) 150 300))
+		      (if (eq system-type 'darwin) 150 185))
   (when (version<= "26.0.50" emacs-version)
     (global-display-line-numbers-mode))
-  :bind (:map c++-mode-map
-	      ("C-c o" . ff-find-other-file)))
+  :hook
+  (c++-mode . (lambda ()
+		(define-key c++-mode-map
+			    (kbd "C-c o")
+			    'ff-find-other-file))))
 (use-package eglot
   :init
   (add-hook 'after-save-hook #'eglot-format-on-save)
