@@ -153,4 +153,4 @@
   (yas-expand-snippet (yas-lookup-snippet "c-project-header")))
 
 
-(load-file "auxiliary.el")
+(load-file "~/s/dotfiles/emacs/auxiliary.el")
