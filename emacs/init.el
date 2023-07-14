@@ -151,3 +151,6 @@
 (defun bg/yas-c-project-header ()
   (interactive)
   (yas-expand-snippet (yas-lookup-snippet "c-project-header")))
+
+
+(load-file "auxiliary.el")
