@@ -151,6 +151,21 @@
 (defun bg/yas-c-project-header ()
   (interactive)
   (yas-expand-snippet (yas-lookup-snippet "c-project-header")))
+(defun bg/yas-cpp-project-header ()
+  (interactive)
+  (yas-expand-snippet (yas-lookup-snippet "c++-project-header")))
+
+(defun bg/generate-cpp-sources (name namespace dir)
+  (interactive (list (read-string "Name: ")
+		     (read-string "Namespace: ")
+		     (read-string "Directory: " (project-root (project-current)))))
+  (let ((header-file (concat dir "/" name ".hpp"))
+	(header-contents (concat "#pragma once\n\nnamespace " namespace " {\n\n}  // namespace " namespace))
+	(source-file (concat dir "/" name ".cpp"))
+	(source-contents (concat "#include \"" name ".hpp\"\n\nnamespace " namespace " {\n\n}  // namespace " namespace)))
+    (append-to-file header-contents nil header-file)
+    (append-to-file source-contents nil source-file)    
+    (message "Generated %s/%s.{h,cpp}" dir name)))
 
 
 (load-file "~/s/dotfiles/emacs/auxiliary.el")
