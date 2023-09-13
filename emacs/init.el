@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(use-package rainbow-delimiters paredit modus-themes lsp-ui lsp-mode yasnippet company magit which-key ace-window)))
+   '(rust-mode use-package rainbow-delimiters paredit modus-themes lsp-ui lsp-mode yasnippet company magit which-key ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,6 +56,8 @@
 	       '(c++-mode . ("clangd" "--completion-style=detailed")))
   (add-to-list 'eglot-server-programs
 	       '(c-mode . ("clangd" "--completion-style=detailed")))
+  (add-to-list 'eglot-server-programs
+	       '(rust-mode . ("rust-analyzer")))
   (setq-default eglot-workspace-configuration
 		'(:pylsp
 		  (:plugins (:flake8          (:enabled t)
@@ -87,7 +89,8 @@
   :hook
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure)
-  (python-mode . eglot-ensure))
+  (python-mode . eglot-ensure)
+  (rust-mode . eglot-ensure))
 
 (use-package modus-themes
   :ensure t
