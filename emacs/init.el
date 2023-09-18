@@ -51,6 +51,10 @@
   :init
   (add-hook 'after-save-hook #'eglot-format-on-save)
   :config
+  ;; !!! DO NOT REMOVE UNTIL EGLOT IS FIXED !!!
+  ;; Without this line, eglot keels over and becomes unusable. Details here:
+  ;; https://www.reddit.com/r/emacs/comments/1447fy2/looking_for_help_in_improving_typescript_eglot/jnescet/
+  (fset #'jsonrpc--log-event #'ignore)
   ;; needed for overload suggestions
   (add-to-list 'eglot-server-programs
 	       '(c++-mode . ("clangd" "--completion-style=detailed")))
