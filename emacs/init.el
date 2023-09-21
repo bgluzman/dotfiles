@@ -22,9 +22,8 @@
 (defun bg/load-file (filename)
   (load-file (concat
 	      (file-name-directory
-	       (file-truename (if buffer-file-name
-				  buffer-file-name
-				load-file-name)))
+	       (file-truename (or buffer-file-name
+				  load-file-name)))
 	      filename)))
 
 ;; builtins
@@ -52,9 +51,9 @@
 			    'ff-find-other-file))))
 
 ;; lsp configuration
-(setq lsp-config 'eglot)
+(setq lsp-config 'lsp-mode)
 (if (eq lsp-config 'lsp-mode)
-    (error "unknown lsp configuration")
+    (bg/load-file "lsp-mode-config.el")
     (bg/load-file "eglot-mode-config.el"))
 
 
