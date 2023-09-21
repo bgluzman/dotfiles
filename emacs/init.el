@@ -18,6 +18,15 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
+;; helper for loading files in version-controlled dir
+(defun bg/load-file (filename)
+  (load-file (concat
+	      (file-name-directory
+	       (file-truename (if buffer-file-name
+				  buffer-file-name
+				load-file-name)))
+	      filename)))
+
 ;; builtins
 (use-package emacs
   :config
@@ -43,13 +52,10 @@
 			    'ff-find-other-file))))
 
 ;; lsp configuration
-(setq lsp-mode 'eglot)
-(if (eq lsp-mode 'eglot)
-    (load-file (concat
-		(file-name-directory (file-truename
-				      (if buffer-file-name buffer-file-name load-file-name)))
-		"eglot-mode-config.el"))
-  (error "cannot load lsp mode"))
+(setq lsp-config 'eglot)
+(if (eq lsp-config 'lsp-mode)
+    (error "unknown lsp configuration")
+    (bg/load-file "eglot-mode-config.el"))
 
 
 (use-package subatomic-theme
