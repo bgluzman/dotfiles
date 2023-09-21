@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(subatomic-theme rust-mode use-package rainbow-delimiters paredit lsp-ui lsp-mode yasnippet company magit which-key ace-window)))
+   '(subatomic-theme rust-mode use-package rainbow-delimiters paredit yasnippet company magit which-key ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,7 +51,7 @@
 			    'ff-find-other-file))))
 
 ;; lsp configuration
-(setq lsp-config 'lsp-mode)
+(setq lsp-config 'eglot-mode)
 (if (eq lsp-config 'lsp-mode)
     (bg/load-file "lsp-mode-config.el")
     (bg/load-file "eglot-mode-config.el"))
