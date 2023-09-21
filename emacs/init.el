@@ -43,9 +43,14 @@
 			    'ff-find-other-file))))
 
 ;; lsp configuration
-(load-file (concat
-	    (file-name-directory (file-truename load-file-name))
-	    "eglot-config.el"))
+(setq lsp-mode 'eglot)
+(if (eq lsp-mode 'eglot)
+    (load-file (concat
+		(file-name-directory (file-truename
+				      (if buffer-file-name buffer-file-name load-file-name)))
+		"eglot-config.el"))
+  (error "cannot load lsp mode"))
+
 
 (use-package subatomic-theme
   :ensure t
