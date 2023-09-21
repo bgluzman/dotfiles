@@ -48,7 +48,7 @@
     (load-file (concat
 		(file-name-directory (file-truename
 				      (if buffer-file-name buffer-file-name load-file-name)))
-		"eglot-config.el"))
+		"eglot-mode-config.el"))
   (error "cannot load lsp mode"))
 
 
